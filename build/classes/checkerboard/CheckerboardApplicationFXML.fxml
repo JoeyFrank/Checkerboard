@@ -12,10 +12,10 @@
         <menus>
           <Menu mnemonicParsing="false" text="Grid">
             <items>
-              <MenuItem id="16" mnemonicParsing="false" onAction="#handleBoardResize" text="16 x 16" />
-                  <MenuItem id="10" mnemonicParsing="false" onAction="#handleBoardResize" text="10 x 10" />
-                  <MenuItem id="8" mnemonicParsing="false" onAction="#handleBoardResize" text="8 x 8" />
-                  <MenuItem id="3" mnemonicParsing="false" onAction="#handleBoardResize" text="3 x 3" />
+              <MenuItem id="16" mnemonicParsing="false" onAction="#handleBoardGridChange" text="16 x 16" />
+                  <MenuItem id="10" mnemonicParsing="false" onAction="#handleBoardGridChange" text="10 x 10" />
+                  <MenuItem id="8" mnemonicParsing="false" onAction="#handleBoardGridChange" text="8 x 8" />
+                  <MenuItem id="3" mnemonicParsing="false" onAction="#handleBoardGridChange" text="3 x 3" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Colors">

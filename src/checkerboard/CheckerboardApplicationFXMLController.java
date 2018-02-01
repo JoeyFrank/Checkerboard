@@ -30,18 +30,14 @@ public class CheckerboardApplicationFXMLController implements Initializable, Sta
     
     private Checkerboard checkerboard;
     private AnchorPane anchorPane;
-    private Color[] defaultColorScheme = {Color.RED, Color.BLACK};
-    private Color[] blueColorScheme = {Color.SKYBLUE, Color.DARKBLUE};
+    private final Color[] blueColorScheme = {Color.SKYBLUE, Color.DARKBLUE};
    
     @FXML
     private VBox vBox;
     
-//    @FXML
-//    private MenuBar menuBar;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        System.out.println("Controller Initialize");
     } 
 
     @Override
@@ -53,47 +49,50 @@ public class CheckerboardApplicationFXMLController implements Initializable, Sta
         vBox.getChildren().add(anchorPane);
         
         ChangeListener<Number> lambdaChangeListener = (ObservableValue<? extends Number> observable, Number oldValue, final Number newValue) -> {
-            refresh();
+            refreshBoard();
         };
         
         this.stage.widthProperty().addListener(lambdaChangeListener);
         this.stage.heightProperty().addListener(lambdaChangeListener);
         
-        refresh();    
+        refreshBoard();    
     }
     
     @FXML
-    private void handleBoardResize(ActionEvent event) {
+    private void handleBoardGridChange(ActionEvent event) {
         MenuItem menuItem = (MenuItem)event.getSource();
         int size = Integer.parseInt(menuItem.getId());
         System.out.println("Button ID: " + size);
         
-        vBox.getChildren().remove(anchorPane);
-        checkerboard = new Checkerboard(size, size, 60, 60);
-        anchorPane = checkerboard.getBoard();
-        vBox.getChildren().add(anchorPane);
-        refresh();
+        checkerboard = new Checkerboard(size, size, 60, 60, checkerboard.getLightColor(), checkerboard.getDarkColor());
+        
+        resetAnchorPane();
+        refreshBoard();
     }
     
     @FXML
     private void handleBoardColorChange(ActionEvent event) {
         MenuItem menuItem = (MenuItem)event.getSource();
-        vBox.getChildren().remove(anchorPane);
         
         switch(menuItem.getId()){
             case "blueColorScheme":
                 checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60, blueColorScheme[0], blueColorScheme[1]);
                 break;
             default:
-                checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60, defaultColorScheme[0], defaultColorScheme[1]);
+                checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60);
         }
         
-        anchorPane = checkerboard.getBoard();
-        vBox.getChildren().add(anchorPane);
-        refresh();
+        resetAnchorPane();
+        refreshBoard();
     }
     
-    private void refresh() {
+    private void refreshBoard() {
         checkerboard.build(vBox.getWidth(), (vBox.getHeight() - 29));
+    }
+    
+    private void resetAnchorPane() {
+        vBox.getChildren().remove(anchorPane);
+        anchorPane = checkerboard.getBoard();
+        vBox.getChildren().add(anchorPane);    
     }
 }

@@ -14,15 +14,15 @@ import javafx.scene.shape.Rectangle;
  * @author Joey
  */
 public class Checkerboard {
-    protected double width;
-    protected double height;
-    protected int rows;
-    protected int columns;
-    protected double rectangleWidth;
-    protected double rectangleHeight;
-    protected Color lightColor;
-    protected Color darkColor;
-    protected AnchorPane anchorPane;
+    private double width;
+    private double height;
+    private int rows;
+    private int columns;
+    private double rectangleWidth;
+    private double rectangleHeight;
+    private Color lightColor;
+    private Color darkColor;
+    private AnchorPane anchorPane;
     
     public Checkerboard(int numRows, int numColumns, double boardWidth, double boardHeight) {
         this.rows = numRows;
@@ -41,15 +41,14 @@ public class Checkerboard {
         this.darkColor = darkColor;
     }
     
-    public AnchorPane build(/*int rows, int columns,*/ double width, double height) {
+    public AnchorPane build(double width, double height) {
         clear();
-//        this.rows = rows;
-//        this.columns = columns;
+        
         this.width = width;
         this.height = height;
         
-        rectangleWidth = Math.ceil(width / (double)columns);
-        rectangleHeight = Math.ceil(height / (double)rows);
+        rectangleWidth = (width / (double)columns);
+        rectangleHeight = (height / (double)rows);
         
         anchorPane.setPrefWidth(width);
         anchorPane.setPrefHeight(height);
@@ -83,7 +82,7 @@ public class Checkerboard {
     }
     
     public AnchorPane getBoard() {
-        return anchorPane;
+        return (anchorPane != null) ? anchorPane : null;
     }
     
     public int getNumRows() {
@@ -108,5 +107,13 @@ public class Checkerboard {
     
     public double getRectangleHeight() {
         return rectangleHeight;
+    }
+    
+    public Color getLightColor() {
+        return lightColor;
+    }
+    
+    public Color getDarkColor() {
+        return darkColor;
     }
 }
