@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +30,8 @@ public class CheckerboardApplicationFXMLController implements Initializable, Sta
     
     private Checkerboard checkerboard;
     private AnchorPane anchorPane;
+    private Color[] defaultColorScheme = {Color.RED, Color.BLACK};
+    private Color[] blueColorScheme = {Color.SKYBLUE, Color.DARKBLUE};
    
     @FXML
     private VBox vBox;
@@ -62,9 +65,31 @@ public class CheckerboardApplicationFXMLController implements Initializable, Sta
     @FXML
     private void handleBoardResize(ActionEvent event) {
         MenuItem menuItem = (MenuItem)event.getSource();
-        System.out.println("Button ID: " + menuItem.getId());
-        checkerboard = new Checkerboard(16, 16, 60, 60);
+        int size = Integer.parseInt(menuItem.getId());
+        System.out.println("Button ID: " + size);
+        
+        vBox.getChildren().remove(anchorPane);
+        checkerboard = new Checkerboard(size, size, 60, 60);
         anchorPane = checkerboard.getBoard();
+        vBox.getChildren().add(anchorPane);
+        refresh();
+    }
+    
+    @FXML
+    private void handleBoardColorChange(ActionEvent event) {
+        MenuItem menuItem = (MenuItem)event.getSource();
+        vBox.getChildren().remove(anchorPane);
+        
+        switch(menuItem.getId()){
+            case "blueColorScheme":
+                checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60, blueColorScheme[0], blueColorScheme[1]);
+                break;
+            default:
+                checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60, defaultColorScheme[0], defaultColorScheme[1]);
+        }
+        
+        anchorPane = checkerboard.getBoard();
+        vBox.getChildren().add(anchorPane);
         refresh();
     }
     

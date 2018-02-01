@@ -41,8 +41,10 @@ public class Checkerboard {
         this.darkColor = darkColor;
     }
     
-    public AnchorPane build(double width, double height) {
+    public AnchorPane build(/*int rows, int columns,*/ double width, double height) {
         clear();
+//        this.rows = rows;
+//        this.columns = columns;
         this.width = width;
         this.height = height;
         
@@ -59,9 +61,9 @@ public class Checkerboard {
                 Rectangle rect;
                 
                 if( (row+col)%2 == 0 ){
-                    rect = new Rectangle(rectangleWidth, rectangleHeight, darkColor);
-                } else {
                     rect = new Rectangle(rectangleWidth, rectangleHeight, lightColor);
+                } else {
+                    rect = new Rectangle(rectangleWidth, rectangleHeight, darkColor);
                 }
                 
                 AnchorPane.setTopAnchor(rect, row*rectangleHeight);

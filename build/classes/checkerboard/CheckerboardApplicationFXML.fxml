@@ -13,15 +13,15 @@
           <Menu mnemonicParsing="false" text="Grid">
             <items>
               <MenuItem id="16" mnemonicParsing="false" onAction="#handleBoardResize" text="16 x 16" />
-                  <MenuItem mnemonicParsing="false" text="10 x 10" />
-                  <MenuItem mnemonicParsing="false" text="8 x 8" />
-                  <MenuItem mnemonicParsing="false" text="3 x 3" />
+                  <MenuItem id="10" mnemonicParsing="false" onAction="#handleBoardResize" text="10 x 10" />
+                  <MenuItem id="8" mnemonicParsing="false" onAction="#handleBoardResize" text="8 x 8" />
+                  <MenuItem id="3" mnemonicParsing="false" onAction="#handleBoardResize" text="3 x 3" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Colors">
             <items>
-              <MenuItem mnemonicParsing="false" text="Default" />
-                  <MenuItem mnemonicParsing="false" text="Blue" />
+              <MenuItem id="defaultColorScheme" mnemonicParsing="false" onAction="#handleBoardColorChange" text="Default" />
+                  <MenuItem id="blueColorScheme" mnemonicParsing="false" onAction="#handleBoardColorChange" text="Blue" />
             </items>
           </Menu>
         </menus>
