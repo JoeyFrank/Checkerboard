@@ -24,6 +24,7 @@ public class Checkerboard {
     private Color darkColor;
     private AnchorPane anchorPane;
     
+    //constructor with default colors
     public Checkerboard(int numRows, int numColumns, double boardWidth, double boardHeight) {
         this.rows = numRows;
         this.columns = numColumns;
@@ -35,6 +36,7 @@ public class Checkerboard {
         anchorPane = new AnchorPane();
     }
     
+    //constructor with color parameters
     public Checkerboard(int numRows, int numColumns, double boardWidth, double boardHeight, Color lightColor, Color darkColor) {
         this(numRows,numColumns,boardWidth,boardHeight);
         this.lightColor = lightColor;
@@ -53,18 +55,20 @@ public class Checkerboard {
         anchorPane.setPrefWidth(width);
         anchorPane.setPrefHeight(height);
         
-        System.out.println("update board");
+        //System.out.println("update board");
          
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < columns; col++) {
                 Rectangle rect;
                 
+                //math for grid colors
                 if( (row+col)%2 == 0 ){
                     rect = new Rectangle(rectangleWidth, rectangleHeight, lightColor);
                 } else {
                     rect = new Rectangle(rectangleWidth, rectangleHeight, darkColor);
                 }
                 
+                //setting position in anchorpane
                 AnchorPane.setTopAnchor(rect, row*rectangleHeight);
                 AnchorPane.setLeftAnchor(rect, col*rectangleWidth);
                 

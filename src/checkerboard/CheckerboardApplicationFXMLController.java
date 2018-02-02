@@ -44,6 +44,7 @@ public class CheckerboardApplicationFXMLController implements Initializable, Sta
     public void start(Stage stage) {
         this.stage = stage;
         
+        //generate default checkerboard
         checkerboard = new Checkerboard(8, 8, 60, 60);
         anchorPane = checkerboard.getBoard();
         vBox.getChildren().add(anchorPane);
@@ -52,12 +53,14 @@ public class CheckerboardApplicationFXMLController implements Initializable, Sta
             refreshBoard();
         };
         
+        //add listeners to adjust board when stage size changes
         this.stage.widthProperty().addListener(lambdaChangeListener);
         this.stage.heightProperty().addListener(lambdaChangeListener);
         
         refreshBoard();    
     }
     
+    //Gets size of new grid from button id, creates a new checkerboard of this size
     @FXML
     private void handleBoardGridChange(ActionEvent event) {
         MenuItem menuItem = (MenuItem)event.getSource();
@@ -70,29 +73,30 @@ public class CheckerboardApplicationFXMLController implements Initializable, Sta
         refreshBoard();
     }
     
+    //Gets color scheme of new grid from button id, creates a new checkerboard of this color
     @FXML
     private void handleBoardColorChange(ActionEvent event) {
         MenuItem menuItem = (MenuItem)event.getSource();
         
-        switch(menuItem.getId()){
-            case "blueColorScheme":
-                checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60, blueColorScheme[0], blueColorScheme[1]);
-                break;
-            default:
-                checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60);
+        if(menuItem.getId().equals("blueColorScheme")){
+            checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60, blueColorScheme[0], blueColorScheme[1]);
+        } else {
+            checkerboard = new Checkerboard(checkerboard.getNumRows(), checkerboard.getNumColumns(), 60, 60);
         }
         
         resetAnchorPane();
         refreshBoard();
     }
     
+    //rebuilds current board with size of vbox
     private void refreshBoard() {
         checkerboard.build(vBox.getWidth(), (vBox.getHeight() - 29));
     }
     
+    //removes anchorpane from vbox, resets it to anchorpane held in checkerboard object, and re-adds it to vbox
     private void resetAnchorPane() {
         vBox.getChildren().remove(anchorPane);
         anchorPane = checkerboard.getBoard();
-        vBox.getChildren().add(anchorPane);    
+        vBox.getChildren().add(anchorPane);   
     }
 }
